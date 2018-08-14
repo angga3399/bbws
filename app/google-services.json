@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "335535416882",
+    "firebase_url": "https://skripsiandroid-angga.firebaseio.com",
+    "project_id": "skripsiandroid-angga",
+    "storage_bucket": "skripsiandroid-angga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335535416882:android:3482292408780025",
+        "android_client_info": {
+          "package_name": "unikom.skripsi.angga.masyarakat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335535416882-ckqkhr1h12oc9opbcmihoecmafucrsvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "unikom.skripsi.angga.masyarakat",
+            "certificate_hash": "0cf7778b76d027f0f43b5fb38839c009aed642f9"
+          }
+        },
+        {
+          "client_id": "335535416882-kkeecg2tr3bg9ivot5413gl6u2dvaptp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Vfoa0mu98hSWs8mN6me9-bu5QVZ3jZU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335535416882-kkeecg2tr3bg9ivot5413gl6u2dvaptp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:335535416882:android:e1acc063f0ea35c2",
+        "android_client_info": {
+          "package_name": "unikom.skripsi.angga.petugas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "335535416882-8i805ccre6s21cs4g4cvniofl2h6s77g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "unikom.skripsi.angga.petugas",
+            "certificate_hash": "8a0e86d970baac860979a6a5b41f7a34d617f1ce"
+          }
+        },
+        {
+          "client_id": "335535416882-kkeecg2tr3bg9ivot5413gl6u2dvaptp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Vfoa0mu98hSWs8mN6me9-bu5QVZ3jZU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "335535416882-kkeecg2tr3bg9ivot5413gl6u2dvaptp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

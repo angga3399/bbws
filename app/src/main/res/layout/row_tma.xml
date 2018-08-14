@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/row_tma_tanggal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textSize="16sp"
+        android:text="Tanggal"/>
+
+    <TextView
+        android:id="@+id/row_tma_jam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textSize="16sp"
+        android:text="Jam"/>
+
+    <TextView
+        android:id="@+id/row_tma_tma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:textSize="16sp"
+        android:text="tma"/>
+
+</LinearLayout>

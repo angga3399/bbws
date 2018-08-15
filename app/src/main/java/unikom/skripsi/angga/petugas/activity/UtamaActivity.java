@@ -109,6 +109,11 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             FilePath.setPathFile(mCurrentPhotoPath);
             Intent i = new Intent(UtamaActivity.this, PushNotificationActivity.class);
@@ -220,19 +225,19 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
 
     private void checkDistance() {
         progressDialog = ProgressDialog.show(this, "", "Check Location...", true, false);
-        Call<JarakModel> api = ApiClient.getClient().create(ApiInterface.class).postGeotagging(latitude, longitude ,
+        Call<JarakModel> api = ApiClient.getClient().create(ApiInterface.class).postGeotagging(latitude, longitude,
                 SessionUtils.getLoggedUser(UtamaActivity.this).getLat(), SessionUtils.getLoggedUser(UtamaActivity.this).getLng());
         api.enqueue(new Callback<JarakModel>() {
             @Override
             public void onResponse(Call<JarakModel> call, Response<JarakModel> response) {
                 progressDialog.dismiss();
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     jarak = response.body().getJarak();
                     Log.e("JARAK", String.valueOf(jarak));
-                    if ( jarak <= 1.0){
+                    if (jarak <= 1.0) {
                         dispatchTakePictureIntent();
-                    }else {
-                        Toast.makeText(UtamaActivity.this, "Jarak terlalu Jauh : "+jarak+" Km", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(UtamaActivity.this, "Jarak terlalu Jauh : " + jarak + " Km", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -261,19 +266,11 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
                             lastLocation = task.getResult();
                             latitude = lastLocation.getLatitude();
                             longitude = lastLocation.getLongitude();
-                        } else {
-                            showSnackbar("Cannot Get Your Location");
                         }
                     }
                 });
     }
 
-    private void showSnackbar(String message) {
-        View container = findViewById(R.id.main_container);
-        if (container != null) {
-            Snackbar.make(container, message, Snackbar.LENGTH_LONG).show();
-        }
-    }
 
     private void showSnackbar(final String mainTextStringId, final int actionStringId,
                               View.OnClickListener listener) {
@@ -299,52 +296,53 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
                         Manifest.permission.ACCESS_COARSE_LOCATION);
 
         if (shouldProvideRationale) {
-        showSnackbar("Location permission is needed for core functionality", R.string.oke,
-        new View.OnClickListener() {
-@Override
-public void onClick(View view) {
-        startLocationPermissionRequest();
-        }
-        });
+            showSnackbar("Location permission is needed for core functionality", R.string.oke,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            startLocationPermissionRequest();
+                        }
+                    });
         } else {
-        startLocationPermissionRequest();
+            startLocationPermissionRequest();
         }
-        }
+    }
 
-@Override
-public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-        if (grantResults.length <= 0) {
-        Toast.makeText(this, "User interaction was cancelled", Toast.LENGTH_SHORT).show();
-        } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-        getLastLocation();
-        } else {
-        showSnackbar("Location permission is needed for core functionality", android.R.string.copy,
-        new View.OnClickListener() {
-@Override
-public void onClick(View view) {
-        // Build intent that displays the App settings screen.
-        Intent intent = new Intent();
-        intent.setAction(
-        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package",
-        BuildConfig.APPLICATION_ID, null);
-        intent.setData(uri);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+            if (grantResults.length <= 0) {
+                Toast.makeText(this, "User interaction was cancelled", Toast.LENGTH_SHORT).show();
+            } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getLastLocation();
+            } else {
+                showSnackbar("Location permission is needed for core functionality", android.R.string.copy,
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Build intent that displays the App settings screen.
+                                Intent intent = new Intent();
+                                intent.setAction(
+                                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                                Uri uri = Uri.fromParts("package",
+                                        BuildConfig.APPLICATION_ID, null);
+                                intent.setData(uri);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        });
+            }
         }
-        });
-        }
-        }
-        }
+    }
 
-@Override
-public void onConnected(@Nullable Bundle bundle) {
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
 
-        }
+    }
 
-@Override
-public void onConnectionSuspended(int i) {
+    @Override
+    public void onConnectionSuspended(int i) {
 
-        }
-        }
+    }
+
+}

@@ -4,7 +4,7 @@
     <string name="loading">Loading…</string>
     <string name="image_from_firebase">Image from firebase</string>
     <string name="judul">Judul</string>
-    <string name="pesan">Pesan</string>
+    <string name="pesan">Keterangan</string>
     <string name="kirim">Kirim</string>
     <string name="title_activity_main3">Main3Activity</string>
     <string name="title_home">Home</string>
@@ -31,4 +31,9 @@
     <string name="oke">OK</string>
     <string name="title_activity_main4">Main4Activity</string>
     <string name="action_settings">Settings</string>
+    <string name="siaga">Siaga</string>
+    <string name="siap">Siap</string>
+    <string name="ancur">Ancur</string>
+    <string name="status">Status</string>
+    <string name="keterangan">Keterangan</string>
 </resources>

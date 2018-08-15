@@ -18,32 +18,32 @@
             android:layout_gravity="center"
             android:background="@mipmap/ic_launcher" />
 
-        <View
-            android:id="@+id/View1"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="#448AFF" />
 
         <EditText
             android:id="@+id/txt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
             android:hint="Email"
+            android:padding="8dp"
+            android:background="@drawable/box_background"
             android:inputType="textEmailAddress"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
 
         <EditText
             android:id="@+id/txt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
             android:hint="Password"
+            android:padding="8dp"
+            android:background="@drawable/box_background"
             android:inputType="textPassword"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"/>
 
         <Button
             android:id="@+id/btn_login"
@@ -61,11 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="15dp"
             android:text="Lupa Password"
             android:background="#448AFF"
             android:textColor="#fff"
             android:textStyle="bold"
+            android:padding="8dp"
             android:onClick="lupa"/>
 
 

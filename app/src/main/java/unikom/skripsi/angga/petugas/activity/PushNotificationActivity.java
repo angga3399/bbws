@@ -8,10 +8,16 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,13 +49,20 @@ import unikom.skripsi.angga.petugas.helper.Config;
 import unikom.skripsi.angga.petugas.helper.FilePath;
 import unikom.skripsi.angga.petugas.util.SessionUtils;
 
-public class PushNotificationActivity extends Activity {
+public class PushNotificationActivity extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl(Config.FIREBASE_URL);
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private ProgressDialog progressDialog;
-    private TextView textViewLatitude;
-    private TextView textViewLongitude;
+
+    private RadioGroup radioGroup;
+    private RadioButton radioButtonSiaga;
+    private RadioButton radioButtonSiap;
+    private RadioButton radioButtonAncur;
+
+    String status;
+
+    private Toolbar toolbar;
 
     private float latitude;
     private float longitude;
@@ -58,19 +71,42 @@ public class PushNotificationActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_notification);
+        toolbar = findViewById(R.id.pushnotif_toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Kirim Notif Banjir");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageView img = findViewById(R.id.notificationImage);
-        final EditText title = findViewById(R.id.notificationTitle);
+        radioGroup = findViewById(R.id.pushnotif_radiogroup);
+        radioButtonSiaga = findViewById(R.id.pushnotif_radiobutton_siaga);
+        radioButtonSiap = findViewById(R.id.pushnotif_radiobutton_siap);
+        radioButtonAncur = findViewById(R.id.pushnotif_radiobutton_ancur);
         final EditText message = findViewById(R.id.notificationMessage);
 
+        status = radioButtonSiaga.getText().toString();
+
         Button btnSend = findViewById(R.id.notificationSend);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (radioButtonSiaga.isChecked()) {
+                    status = radioButtonSiaga.getText().toString();
+                } else if (radioButtonSiap.isChecked()) {
+                    status = radioButtonSiap.getText().toString();
+                } else {
+                    status = radioButtonAncur.getText().toString();
+                }
+            }
+        });
+
 
         final Uri file = Uri.fromFile(new File(FilePath.getPathFile()));
         Picasso.get().load(file).into(img);
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                uploadImage(title.getText().toString(), message.getText().toString());
+                uploadImage(status, message.getText().toString());
             }
         });
         /*setLocation();*/
@@ -80,11 +116,9 @@ public class PushNotificationActivity extends Activity {
         try {
             ExifInterface exifInterface = new ExifInterface(FilePath.getPathFile());
             float[] latLong = new float[2];
-            if (exifInterface.getLatLong(latLong)){
+            if (exifInterface.getLatLong(latLong)) {
                 latitude = latLong[0];
                 longitude = latLong[1];
-                textViewLatitude.setText(String.valueOf(latitude));
-                textViewLongitude.setText(String.valueOf(longitude));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,6 +154,7 @@ public class PushNotificationActivity extends Activity {
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
                 @SuppressLint("DefaultLocale") String progress = String.format("%.2f", (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount());
                 progressDialog.setTitle("Mengirim Notifikasi");
+                progressDialog.setCancelable(false);
                 progressDialog.setMessage("Mengunggah foto: " + progress + " %");
                 progressDialog.show();
             }
@@ -139,6 +174,7 @@ public class PushNotificationActivity extends Activity {
             @Override
             public void onSuccess(final UploadTask.TaskSnapshot taskSnapshot) {
                 progressDialog.setMessage("Mengirim notifikasi...");
+                progressDialog.setCancelable(false);
                 RequestQueue queue = Volley.newRequestQueue(PushNotificationActivity.this);
                 StringRequest strreq = new StringRequest(Request.Method.POST,
                         Config.API_URL + "pushNotification.php",
@@ -147,9 +183,8 @@ public class PushNotificationActivity extends Activity {
                             public void onResponse(String Response) {
                                 progressDialog.dismiss();
                                 Toast.makeText(PushNotificationActivity.this, "Notifikasi telah dikirim.", Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(PushNotificationActivity.this, UtamaActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(i);
+                                Intent intent = new Intent();
+                                setResult(Activity.RESULT_OK, intent);
                                 finish();
                             }
                         }, new Response.ErrorListener() {
@@ -169,7 +204,7 @@ public class PushNotificationActivity extends Activity {
                         return params;
                     }
                 };
-                queue.add(strreq.setRetryPolicy(new DefaultRetryPolicy(0,-1,
+                queue.add(strreq.setRetryPolicy(new DefaultRetryPolicy(0, -1,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)));
             }
         });
@@ -181,5 +216,16 @@ public class PushNotificationActivity extends Activity {
         File file = new File(FilePath.getPathFile());
         file.delete();
         FilePath.setPathFile(null);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

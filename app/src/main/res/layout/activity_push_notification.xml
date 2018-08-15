@@ -1,108 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.PushNotificationActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/pushnotif_toolbar"
+        style="@style/Toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:id="@+id/toolbarName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="@string/app_name"
-                android:textSize="18sp"
-                android:textColor="@android:color/white"
-                android:textStyle="bold"
-                tools:ignore="RelativeOverlap" />
-
-            <ImageButton
-                android:id="@+id/btnFoto"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:adjustViewBounds="true"
-                android:background="@null"
-                android:cropToPadding="true"
-                android:src="@drawable/ic_action_camera"
-                android:contentDescription="@string/image_from_firebase" />
-
-        </RelativeLayout>
-
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="?attr/actionBarSize" />
 
     <ScrollView
-        android:background="@null"
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_margin="4dp"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/notificationImage"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
+                android:layout_margin="4dp"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_action_camera"
-                android:contentDescription="camera"
-                tools:ignore="HardcodedText" />
+                android:scaleType="centerCrop" />
 
-            <EditText
-                android:id="@+id/notificationTitle"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/status"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/pushnotif_radiogroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="top"
-                android:paddingTop="10dp"
-                android:hint="Status"/>
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/pushnotif_radiobutton_siaga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:checked="true"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/siaga"
+                    android:textSize="14sp"
+                    android:theme="@style/RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/pushnotif_radiobutton_siap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/siap"
+                    android:textSize="14sp"
+                    android:theme="@style/RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/pushnotif_radiobutton_ancur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/ancur"
+                    android:textSize="14sp"
+                    android:theme="@style/RadioButton" />
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/keterangan"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="4dp"/>
 
             <EditText
                 android:id="@+id/notificationMessage"
-                android:inputType="textMultiLine"
-                android:lines="5"
-                android:minLines="5"
-                android:maxLines="5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
-                android:scrollbars="vertical"
+                android:background="@drawable/box_background"
                 android:gravity="top"
-                android:hint="@string/pesan"/>
-
-<!--            <TextView
-                android:id="@+id/latitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/longitude"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />-->
+                android:hint="@string/pesan"
+                android:inputType="textMultiLine"
+                android:lines="5"
+                android:maxLines="5"
+                android:minLines="5"
+                android:padding="4dp"
+                android:scrollbars="vertical" />
 
             <Button
                 android:id="@+id/notificationSend"
+                style="@style/Base.Widget.AppCompat.Button.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:paddingTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="@string/kirim" />
 
         </LinearLayout>

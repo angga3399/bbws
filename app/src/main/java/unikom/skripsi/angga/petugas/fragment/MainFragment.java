@@ -1,5 +1,6 @@
 package unikom.skripsi.angga.petugas.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -83,6 +84,14 @@ public class MainFragment extends Fragment implements NotificationAdapter.Listen
     public void clickNotif(String id) {
         Intent intent = new Intent(getActivity(), ShowNotificationActivity.class);
         intent.putExtra("id", id);
-        startActivity(intent);
+        startActivityForResult(intent, 100);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+            loadNotification();
+        }
     }
 }

@@ -110,14 +110,17 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-            fragment.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1001){
+            for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                fragment.onActivityResult(requestCode, resultCode, data);
+            }
         }
+
 
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
             FilePath.setPathFile(mCurrentPhotoPath);
             Intent i = new Intent(UtamaActivity.this, PushNotificationActivity.class);
-            startActivity(i);
+            startActivityForResult(i, 1001);
         }
     }
 
@@ -172,6 +175,7 @@ public class UtamaActivity extends AppCompatActivity implements GoogleApiClient.
 
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Home");
 
         if (savedInstanceState == null) {
             Fragment fragment = null;

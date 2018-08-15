@@ -86,6 +86,9 @@ public class PushNotificationActivity extends AppCompatActivity {
 
         status = radioButtonSiaga.getText().toString();
 
+
+        setLocation();
+
         Button btnSend = findViewById(R.id.notificationSend);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -109,7 +112,7 @@ public class PushNotificationActivity extends AppCompatActivity {
                 uploadImage(status, message.getText().toString());
             }
         });
-        /*setLocation();*/
+
     }
 
     private void setLocation() {
@@ -183,7 +186,7 @@ public class PushNotificationActivity extends AppCompatActivity {
                             public void onResponse(String Response) {
                                 progressDialog.dismiss();
                                 Toast.makeText(PushNotificationActivity.this, "Notifikasi telah dikirim.", Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent();
+                                Intent intent = new Intent(PushNotificationActivity.this, UtamaActivity.class);
                                 setResult(Activity.RESULT_OK, intent);
                                 finish();
                             }
@@ -201,6 +204,8 @@ public class PushNotificationActivity extends AppCompatActivity {
                         params.put("title", title);
                         params.put("message", message);
                         params.put("image", file.getLastPathSegment());
+                        params.put("lat", String.valueOf(latitude));
+                        params.put("lng", String.valueOf(longitude));
                         return params;
                     }
                 };

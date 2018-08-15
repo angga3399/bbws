@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,11 @@ public class MainFragment extends Fragment implements NotificationAdapter.Listen
     }
 
     private void setupRecyclerView() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new NotificationAdapter(new ArrayList<Notification>(), getActivity(), this);
         recyclerView.setAdapter(adapter);
     }
@@ -65,12 +70,14 @@ public class MainFragment extends Fragment implements NotificationAdapter.Listen
             public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
                 progress.setVisibility(View.GONE);
                 txtProgress.setVisibility(View.GONE);
-                if (response.isSuccessful()){
-                    if(response.body().getResults() != null){
-                      adapter.replaceData(response.body().getResults());
+                if (response.isSuccessful()) {
+                    if (response.body().getResults() != null) {
+                        adapter.replaceData(response.body().getResults());
+                        recyclerView.scrollToPosition(response.body().getResults().size()-1);
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<NotificationResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Gagal mengambil data dari server.", Toast.LENGTH_SHORT).show();
@@ -84,14 +91,15 @@ public class MainFragment extends Fragment implements NotificationAdapter.Listen
     public void clickNotif(String id) {
         Intent intent = new Intent(getActivity(), ShowNotificationActivity.class);
         intent.putExtra("id", id);
-        startActivityForResult(intent, 100);
+        startActivity(intent);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode == Activity.RESULT_OK){
+        if (requestCode == 1001 && resultCode == Activity.RESULT_OK) {
             loadNotification();
+
         }
     }
 }

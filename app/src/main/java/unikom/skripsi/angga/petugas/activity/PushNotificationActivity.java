@@ -81,7 +81,7 @@ public class PushNotificationActivity extends AppCompatActivity {
         radioGroup = findViewById(R.id.pushnotif_radiogroup);
         radioButtonSiaga = findViewById(R.id.pushnotif_radiobutton_siaga);
         radioButtonSiap = findViewById(R.id.pushnotif_radiobutton_siap);
-        radioButtonAncur = findViewById(R.id.pushnotif_radiobutton_ancur);
+        radioButtonAncur = findViewById(R.id.pushnotif_radiobutton_awas);
         final EditText message = findViewById(R.id.notificationMessage);
 
         status = radioButtonSiaga.getText().toString();

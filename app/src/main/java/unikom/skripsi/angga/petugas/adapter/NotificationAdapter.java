@@ -31,9 +31,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         TextView title;
         TextView message;
         TextView timestamp;
+        TextView pos;
         NotificationViewHolder(View v) {
             super(v);
             listNotification = v.findViewById(R.id.notification_layout);
+            pos = v.findViewById(R.id.viewPOS);
             title = v.findViewById(R.id.viewTitle);
             message = v.findViewById(R.id.viewMessage);
             timestamp = v.findViewById(R.id.viewTimestamp);
@@ -55,6 +57,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter.NotificationViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+        holder.pos.setText(notifications.get(position).getPos());
         holder.title.setText(notifications.get(position).getTitle());
         holder.timestamp.setText(notifications.get(position).getTimestamp());
         holder.message.setText(notifications.get(position).getMessage());

@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class Notification {
     @SerializedName("message_id")
     private String message_id;
+    @SerializedName("pos")
+    private String pos;
     @SerializedName("title")
     private String title;
     @SerializedName("timestamp")
@@ -14,8 +16,9 @@ public class Notification {
     @SerializedName("image_name")
     private String image_name;
 
-    public Notification(String message_id, String title, String timestamp, String message, String image_name) {
+    public Notification(String message_id, String pos, String title, String timestamp, String message, String image_name) {
         this.message_id = message_id;
+        this.pos = pos;
         this.title = title;
         this.timestamp = timestamp;
         this.message = message;
@@ -30,9 +33,11 @@ public class Notification {
         this.message_id = message_id;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    public String getPos() { return pos; }
+
+    public void setPos(String pos) { this.pos = pos; }
+
+    public String getTitle() { return title; }
 
     public void setTitle(String title) {
         this.title = title;

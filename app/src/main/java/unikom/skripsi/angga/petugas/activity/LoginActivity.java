@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import retrofit2.Call;
@@ -20,8 +21,9 @@ import unikom.skripsi.angga.petugas.util.SessionUtils;
 public class LoginActivity extends AppCompatActivity  {
 
     ProgressDialog pDialog;
-    Button btn_lupa, btn_login;
+    Button btn_login;
     EditText txt_username, txt_password;
+    TextView txt_lupa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity  {
 
 
         btn_login = findViewById(R.id.btn_login);
-        btn_lupa  = findViewById(R.id.btn_lupa);
+        txt_lupa  = findViewById(R.id.txt_lupa);
         txt_username = findViewById(R.id.txt_username);
         txt_password = findViewById(R.id.txt_password);
 

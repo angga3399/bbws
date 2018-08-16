@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Email"
+            android:hint="Email..."
             android:padding="8dp"
             android:background="@drawable/box_background"
             android:inputType="textEmailAddress"
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Password"
+            android:hint="Password..."
             android:padding="8dp"
             android:background="@drawable/box_background"
             android:inputType="textPassword"
@@ -45,6 +45,16 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"/>
 
+        <TextView
+            android:id="@+id/txt_lupa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Lupa Password?"
+            android:textColor="#448AFF"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:onClick="lupa"/>
         <Button
             android:id="@+id/btn_login"
             android:layout_width="wrap_content"
@@ -55,20 +65,6 @@
             android:background="#448AFF"
             android:textColor="#fff"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_lupa"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Lupa Password"
-            android:background="#448AFF"
-            android:textColor="#fff"
-            android:textStyle="bold"
-            android:padding="8dp"
-            android:onClick="lupa"/>
-
-
     </LinearLayout>
 
 </RelativeLayout>

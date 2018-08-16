@@ -71,15 +71,14 @@
                     android:theme="@style/RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/pushnotif_radiobutton_ancur"
+                    android:id="@+id/pushnotif_radiobutton_awas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif"
-                    android:text="@string/ancur"
+                    android:text="Awas"
                     android:textSize="14sp"
                     android:theme="@style/RadioButton" />
-
             </RadioGroup>
 
             <TextView

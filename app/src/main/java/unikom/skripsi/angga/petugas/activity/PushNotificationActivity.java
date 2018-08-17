@@ -201,6 +201,7 @@ public class PushNotificationActivity extends AppCompatActivity {
                     public Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
                         params.put("idUser", SessionUtils.getLoggedUser(PushNotificationActivity.this).getUser_id());
+                        params.put("pos", SessionUtils.getLoggedUser(PushNotificationActivity.this).getPos());
                         params.put("title", title);
                         params.put("message", message);
                         params.put("image", file.getLastPathSegment());

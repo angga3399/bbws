@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,11 +20,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import unikom.skripsi.angga.petugas.R;
+import unikom.skripsi.angga.petugas.activity.PushNotificationActivity;
 import unikom.skripsi.angga.petugas.activity.TmaActivity;
 import unikom.skripsi.angga.petugas.adapter.TmaAdapter;
 import unikom.skripsi.angga.petugas.model.TmaModel;
 import unikom.skripsi.angga.petugas.rest.ApiClient;
 import unikom.skripsi.angga.petugas.rest.ApiInterface;
+import unikom.skripsi.angga.petugas.util.SessionUtils;
 
 public class TMAFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -66,18 +69,22 @@ public class TMAFragment extends Fragment {
     }
 
     private void loadTma() {
-        Call<TmaModel.TmaDataModel> api = ApiClient.getClient().create(ApiInterface.class).getTMA("P34");
+        Call<TmaModel.TmaDataModel> api = ApiClient.getClient().create(ApiInterface.class).getTMA(SessionUtils.getLoggedUser(getActivity()).getUser_id());
         api.enqueue(new Callback<TmaModel.TmaDataModel>() {
             @Override
             public void onResponse(Call<TmaModel.TmaDataModel> call, Response<TmaModel.TmaDataModel> response) {
                 if (response.isSuccessful()){
-                    tmaAdapter.replaceData(response.body().getResults());
+                    if(response.body().getMessage().equalsIgnoreCase("Berhasil")) {
+                        tmaAdapter.replaceData(response.body().getResults());
+                    }else{
+                        Toast.makeText(getActivity(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(retrofit2.Call<TmaModel.TmaDataModel> call, Throwable t) {
-
+                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
